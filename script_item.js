@@ -1,5 +1,5 @@
 // TODO #4.0: Change this IP address to EC2 instance public IP address when you are going to deploy this web application
-const backendIPAddress = "127.0.0.1:3000";
+const backendIPAddress = "localhost:3000";
 
 let itemsData;
 
@@ -22,6 +22,7 @@ const showGroupMembers = async () => {
   await fetch(`http://${backendIPAddress}/items/members`, options)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       const members = data;
       members.map((member) => {
         member_list.innerHTML += `
