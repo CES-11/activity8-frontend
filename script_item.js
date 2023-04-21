@@ -86,12 +86,23 @@ const addItem = async () => {
   );
   const options = {
     method: "POST",
-    body: { item_id: item, name: name, price: price },
+    // body :{
+    //   "item": "โค้กส้ม (ขวด)",
+    //   "name": "อติวงศ์ สุชาโต",
+    //   "price": 18.0
+    // }
+    headers:{
+      "Content-Type": "application/json", 
+    },
+    body: JSON.stringify({ item: item, name: name, price: parseInt(price) }),
   };
+
+  console.log(options);
+
   await fetch(`http://${backendIPAddress}/items`, options)
-    .then((response) => response.json())
     .then((result) => {
-      console.log("Success:", result);
+      console.log("Success!");
+      redrawDOM();
     })
     .catch((error) => {
       console.log("Error:", error);
@@ -106,10 +117,12 @@ const deleteItem = async (item_id) => {
   const options = {
     method: "DELETE",
   };
-  await fetch(`http://${backendIPAddress}/items/:${item_id}`, option)
-    .then((response) => response.json())
+
+  await fetch(`http://${backendIPAddress}/items/:${item_id}`, options)
+    // .then((response) => response.json())
     .then((result) => {
       console.log("Success:", result);
+      redrawDOM();
     })
     .catch((error) => {
       console.log("Error:", error);
